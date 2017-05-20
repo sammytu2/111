@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!--
+Sam Tu
+Comp 484
+5.19.17
+Project 5
+-->
+<head>
+<script type="text/javascript" src="poker.js"></script>
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js'></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <title></title>
+<script type='text/javascript'>
+   var socket = io('http://localhost:3000', {path: '/socket.io'}); // connect to server
+socket.on('fromServer', function(data) { // listen for fromServer message
+	   console.log('Received ' + data.id + ' from server since someone else joined');
+	   socket.emit('fromClient', {id: 'bar'}); // send fromClient message to server
+	});
+socket.on('newUser', function(data) { // listen for deck from server
+	  //Client message to server
+	deck=data.id;
+	  createPlayer(players);
+	  socket.emit('Send Card Value', {id: deck});
+	});
+   socket.on('firstPlayer', function(data) { // listen for fromServer message //data is socket'
+	   createDeck();
+	   createPlayer(data);
+		   socket.emit('Send Card Value', {id: deck}); // send fromClient message to server
+		   socket.emit('Send Players Array', {id: playerArr}); // send fromClient message to server
+	   
+	   	});
+
+</script>
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+
+<title>Insert title here</title>
+</head>
+<body id="body">HI
+
+<script type="text/javascript">
+
+
+</script>
+<div id="stage">
+<div id="felt">
+<style type="text/css">
+div.inline { float:left; }
+.clearBoth { clear:both; }
+</style>
+<button id="one" onclick="dealCard();">Start</button>
+<button id="two" onclick="newRound();"disabled>NextRound</button>
+<p id="demo"></p>
+<p id="demo2"></p>
+</div>
+Discard       
+<button id="0" value = 0 onclick="reDeal(value);">Card 0</button>
+<button id="1" value = 1 onclick="reDeal(value);">Card 1</button>
+<button id="2" value = 2 onclick="reDeal(value);">Card 2</button>
+<button id="3" value = 3 onclick="reDeal(value);">Card 3</button>
+<button id="4" value = 4 onclick="reDeal(value);">Card 4</button>
+</div>
+
+
+
+
+
+</body>
+</html>
